@@ -14,9 +14,35 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, re_path, include
+from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework import permissions
+from rest_framework.schemas import get_schema_view
+from rest_framework.documentation import include_docs_urls# drf_yasg code starts here
+from rest_framework import permissions
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
 
+schema_view = get_schema_view(
+    openapi.Info(
+        title="Urbane Gaerten API",
+        default_version='v1',
+        description="This API is for the Stadtlabor project for urban gardens",
+        terms_of_service="https://www.uni-muenster.de/Stadtlabor/",
+        contact=openapi.Contact(email="l_baec02@uni-muenster.de"),
+        license=openapi.License(name="Awesome IP"),
+    ),
+    public=True,
+    permission_classes=(permissions.AllowAny,),
+)
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('playground/', include('playground.urls')),
+    path('api/v1/playground/', include('playground.urls')),
+    path('api/v1/newsletter/', include('newsletter.urls')),
+    re_path(r'^doc(?P<format>\.json|\.yaml)$',
+            schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    path('', schema_view.with_ui('swagger', cache_timeout=0),
+         name='schema-swagger-ui'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
+         name='schema-redoc'),
 ]

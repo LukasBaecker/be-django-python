@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "*"
 django-debug-toolbar = "*"
+django-rest-framework = "*"
+drf-yasg = "*"
 
 [dev-packages]
 
