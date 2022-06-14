@@ -6,6 +6,6 @@ from newsletter import views
 
 #URLConf
 urlpatterns = [
-    path('hello/', views.say_hello),
     path('all/', NewsletterView.as_view()),
+    path('', NewsletterViewPost.as_view()),
 ]

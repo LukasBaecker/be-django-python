@@ -8,6 +8,8 @@ django = "*"
 django-debug-toolbar = "*"
 django-rest-framework = "*"
 drf-yasg = "*"
+coreapi = "*"
+django-cors-headers = "*"
 
 [dev-packages]
 
